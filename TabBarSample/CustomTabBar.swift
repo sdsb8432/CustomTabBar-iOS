@@ -25,6 +25,9 @@ class CustomTabBar: UIView {
     var customTabBarItems: [CustomTabBarItem]!
     var tabBarButtons: [UIButton]!
     
+    var clickedTabBarItem: CustomTabBarItem!
+    var clickedIcon = ["home", "envelope", "cursor", "photo-camera", "power-button"]
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -45,6 +48,8 @@ class CustomTabBar: UIView {
         let containers = createTabBarItemContainers()
         createTabBarItems(containers)
         
+        customTabBarItems[0].iconView.image = UIImage(named: clickedIcon[0])
+        clickedTabBarItem = customTabBarItems[0]
     }
     
     func createTabBarItems(_ containers: [CGRect]) {
@@ -96,6 +101,13 @@ class CustomTabBar: UIView {
     
     func barItemTapped(_ sender : UIButton) {
         let index = tabBarButtons.index(of: sender)!
+        
+        if let tabBarItem: CustomTabBarItem = clickedTabBarItem {
+            tabBarItem.notClick()
+        }
+        
+        customTabBarItems[index].iconView.image = UIImage(named: clickedIcon[index])
+        clickedTabBarItem = customTabBarItems[index]
         
         delegate.didSelectViewController(self, atIndex: index)
     }

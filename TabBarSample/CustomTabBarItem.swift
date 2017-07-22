@@ -11,6 +11,7 @@ import UIKit
 class CustomTabBarItem: UIView {
 
     var iconView: UIImageView!
+    var image: UIImage!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,10 +28,15 @@ class CustomTabBarItem: UIView {
         
         iconView = UIImageView(frame: CGRect(x: (self.frame.width - image.size.width) / 2, y: (self.frame.height - image.size.height) / 2, width: self.frame.width, height: self.frame.height))
         
-        iconView.image = image
+        self.image = image
+        iconView.image = self.image
         iconView.sizeToFit()
         
         addSubview(iconView)
+    }
+    
+    func notClick() {
+        iconView.image = self.image
     }
     /*
     // Only override draw() if you perform custom drawing.
